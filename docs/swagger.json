@@ -1,0 +1,3784 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a prototype worlder server",
+        "title": "Worlder Prototype API",
+        "contact": {},
+        "license": {
+            "name": "Worlder Team"
+        },
+        "version": "1.0"
+    },
+    "host": "118.27.23.183:8080",
+    "basePath": "/api",
+    "paths": {
+        "/": {
+            "get": {
+                "description": "Display home page if the user is not logged in",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Display home page",
+                "responses": {
+                    "200": {}
+                }
+            }
+        },
+        "/accounting/accounts": {
+            "get": {
+                "description": "Get account list by user id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Account"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/outputdata.Account"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Account list is not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Register an account",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Account"
+                ],
+                "summary": "Register an account",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "account name id",
+                        "name": "account-name-id",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {},
+                    "409": {
+                        "description": "The user can't register an account",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/accounting/accounts/new": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Account"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "accountNameList",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/outputdata.AccountName"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/accounting/accounts/{id}": {
+            "get": {
+                "description": "Get an account by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Account"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Account ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "account",
+                        "schema": {
+                            "$ref": "#/definitions/outputdata.Account"
+                        }
+                    },
+                    "404": {
+                        "description": "The user can't get the account",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete a account got by the id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Account"
+                ],
+                "summary": "Delete a account",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Account ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {},
+                    "409": {
+                        "description": "The user can't delete the account",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/accounting/transactions": {
+            "get": {
+                "description": "Display balance of payment management page, getting transaction data from database",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Transaction"
+                ],
+                "summary": "Display balance of payment management page",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "transaction List",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/outputdata.Transaction"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Transactions is not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Register transaction",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Transaction"
+                ],
+                "summary": "Register transaction",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "income or expenditure",
+                        "name": "is-income",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "is-paid",
+                        "name": "is-paid",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "account-id",
+                        "name": "account-id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "accrual date",
+                        "name": "accrual-date",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "account item id, 1",
+                        "name": "account-item-id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "partner-id",
+                        "name": "partner-id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "number",
+                        "description": "amount",
+                        "name": "amount",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "remarks",
+                        "name": "remarks",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {},
+                    "409": {
+                        "description": "The user can't register transaction",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/accounting/transactions/accounts/{id}": {
+            "get": {
+                "description": "Display balance of payment management page, getting transaction data from database",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Transaction"
+                ],
+                "summary": "Display balance of payment management page",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Account ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {},
+                    "404": {
+                        "description": "Transactions is not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/accounting/transactions/new": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Transaction"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "accountItemList",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/outputdata.AccountItem"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/accounting/transactions/payees": {
+            "get": {
+                "description": "Display payee list",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payee"
+                ],
+                "summary": "Display payee list",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Payee list",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/outputdata.Payee"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "The user can't get payee list",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Register a payee",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payee"
+                ],
+                "summary": "Register a payee",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "remarks",
+                        "name": "name",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {},
+                    "409": {
+                        "description": "The user can't create a payee",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/accounting/transactions/payees/{id}": {
+            "delete": {
+                "description": "Delete a payee",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payee"
+                ],
+                "summary": "Delete a payee",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Payee ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {},
+                    "409": {
+                        "description": "The user can't create a payee",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "Edit a payee got by the payee id",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payee"
+                ],
+                "summary": "Edit payee",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "payee id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "payee name",
+                        "name": "name",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "payee",
+                        "schema": {
+                            "$ref": "#/definitions/outputdata.Payee"
+                        }
+                    },
+                    "409": {
+                        "description": "The user can't update the payee",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/accounting/transactions/{id}": {
+            "delete": {
+                "description": "Delete a transaction got by the id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Transaction"
+                ],
+                "summary": "Delete a transaction",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Transaction ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {},
+                    "409": {
+                        "description": "The user can't delete the transaction",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "Edit a transaction",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Transaction"
+                ],
+                "summary": "Edit a transaction",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Transaction ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "income or expenditure",
+                        "name": "is-income",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "is-paid",
+                        "name": "is-paid",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "account-id",
+                        "name": "account-id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "accrual date",
+                        "name": "accrual-date",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "account item id, 1",
+                        "name": "account-item-id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "partner-id",
+                        "name": "partner-id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "number",
+                        "description": "amount",
+                        "name": "amount",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "remarks",
+                        "name": "remarks",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {},
+                    "409": {
+                        "description": "The user can't edit a transaction",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/accounting/transactions/{id}/edit": {
+            "get": {
+                "description": "Display edit page of a transaction got by the id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Transaction"
+                ],
+                "summary": "Display edit page of a transaction",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Transaction ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "transaction",
+                        "schema": {
+                            "$ref": "#/definitions/outputdata.Transaction"
+                        }
+                    },
+                    "404": {
+                        "description": "The user can't get the transaction",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/activate": {
+            "post": {
+                "description": "Make the user active if the authentication token of the URL sent to the user's mail exists in the DB",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserAuth"
+                ],
+                "summary": "Completely sign up",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {},
+                    "404": {
+                        "description": "generate error message 'Token is invalid'",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders": {
+            "post": {
+                "description": "Purchase products",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Purchase products",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Purchase request",
+                        "name": "purchaseList",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/inputdata.PurchaseRequest"
+                        }
+                    },
+                    {
+                        "type": "number",
+                        "description": "total amount",
+                        "name": "total-amount",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {},
+                    "409": {
+                        "description": "The user can't purchase products",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/brands": {
+            "get": {
+                "description": "Get brands by user id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Brand"
+                ],
+                "summary": "Get brands",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Brand list",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/outputdata.Brand"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Brand list is not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Register a new brand. ID is generated by random string generation",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Brand"
+                ],
+                "summary": "Register a new brand",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "brand name",
+                        "name": "brand-name",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "category id: min=1, max=1",
+                        "name": "category-id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "slogan",
+                        "name": "slogan",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "description",
+                        "name": "description",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "brand logo image",
+                        "name": "logo-image",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "draft or not",
+                        "name": "is-draft",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "brand",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "409": {
+                        "description": "The user can't register a brand",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/brands/new": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Brand"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {}
+                }
+            }
+        },
+        "/brands/{id}": {
+            "get": {
+                "description": "Get a brand by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Brand"
+                ],
+                "summary": "Get a brand",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Brand ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Brand",
+                        "schema": {
+                            "$ref": "#/definitions/outputdata.Brand"
+                        }
+                    },
+                    "404": {
+                        "description": "The Brand is not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete a brand got by the id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Brand"
+                ],
+                "summary": "Delete a brand",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Brand ID:registered",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {},
+                    "409": {
+                        "description": "The user can't delete the brand",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "Edit a brand got by the brand id",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Brand"
+                ],
+                "summary": "Edit a brand",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Brand ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "brand name",
+                        "name": "brand-name",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "category id: min=1, max=1",
+                        "name": "category-id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "slogan",
+                        "name": "slogan",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "description",
+                        "name": "description",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "brand logo image",
+                        "name": "logo-image",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "draft or not",
+                        "name": "is-draft",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "brand",
+                        "schema": {
+                            "$ref": "#/definitions/outputdata.Brand"
+                        }
+                    },
+                    "409": {
+                        "description": "The user can't edit the brand",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/brands/{id}/edit": {
+            "get": {
+                "description": "Get the brand if the user is owner",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Brand"
+                ],
+                "summary": "Get the brand",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Brand ID:registered",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "brand",
+                        "schema": {
+                            "$ref": "#/definitions/outputdata.Brand"
+                        }
+                    },
+                    "404": {
+                        "description": "The user can't get the brand",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/brands/{id}/like": {
+            "get": {
+                "description": "Get brand like list by user id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "BrandLike"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Brand id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/outputdata.Brand"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Brand list is not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Register an brandLike",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "BrandLike"
+                ],
+                "summary": "Register an brandLike",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Brand id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {},
+                    "409": {
+                        "description": "Can't register an brandLike",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete a brandLike got by the id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "BrandLike"
+                ],
+                "summary": "Delete a brandLike",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Brand ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {},
+                    "409": {
+                        "description": "The user can't delete the brandLike",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/chat/:id": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Get messages",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "messanger id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Message list",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/outputdata.ChatMessage"
+                            }
+                        }
+                    },
+                    "400": {}
+                }
+            }
+        },
+        "/chat/destinations": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Get destinations",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {},
+                    "400": {}
+                }
+            }
+        },
+        "/chat/ws": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Get WebSocket",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Upgrade",
+                        "name": "Connection",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "websocket",
+                        "name": "Upgrade",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Receiving request",
+                        "name": "message",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/inputdata.ChatMessageRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {},
+                    "400": {}
+                }
+            }
+        },
+        "/inventory/disposal": {
+            "get": {
+                "description": "Display receiving page",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "Display receiving page",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Inventory",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/outputdata.Inventory"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Disposal list is not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Display receiving list of the user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "Display receiving list of the user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Receiving request",
+                        "name": "updateList",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/inputdata.InventoryRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Inventory",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/outputdata.Inventory"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "The user can't recieve",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/inventory/list": {
+            "get": {
+                "description": "Get inventory list by user id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "Get inventory list",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Inventory",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/outputdata.Inventory"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Inventory list is not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/inventory/list/{id}": {
+            "get": {
+                "description": "Display a product by the id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "Display a product",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Inventory",
+                        "schema": {
+                            "$ref": "#/definitions/outputdata.Inventory"
+                        }
+                    },
+                    "404": {
+                        "description": "The product is not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "Display a product by the id",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "Display a product",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "storage",
+                        "name": "storage",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "memo",
+                        "name": "memo",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "barcode",
+                        "name": "barcode",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Inventory",
+                        "schema": {
+                            "$ref": "#/definitions/outputdata.Inventory"
+                        }
+                    },
+                    "404": {
+                        "description": "The product is not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/inventory/list/{id}/edit": {
+            "get": {
+                "description": "Display a product by the id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "Display a product",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Inventory",
+                        "schema": {
+                            "$ref": "#/definitions/outputdata.Inventory"
+                        }
+                    },
+                    "404": {
+                        "description": "The product is not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/inventory/receiving": {
+            "get": {
+                "description": "Display receiving page",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "Display receiving page",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Inventory",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/outputdata.Inventory"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Receiving list is not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create receiving list",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "Create receiving list",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Receiving request",
+                        "name": "updateList",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/inputdata.InventoryRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Inventory",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/outputdata.Inventory"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "The user can't recieve",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/inventory/shipping": {
+            "get": {
+                "description": "Get shipping list by user id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "Get shipping list",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Inventory",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/outputdata.Inventory"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Shipping list is not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Display receiving list of the user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "Display receiving list of the user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Receiving request",
+                        "name": "updateList",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/inputdata.InventoryRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Inventory",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/outputdata.Inventory"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "The user can't recieve",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/inventory/stocktaking": {
+            "get": {
+                "description": "Display receiving page",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "Display receiving page",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Inventory",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/outputdata.Inventory"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Stocktaking list is not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Display receiving list of the user",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "Display receiving list of the user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Receiving request",
+                        "name": "updateList",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/inputdata.StocktakingRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Inventory",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/outputdata.Inventory"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/password/forgot": {
+            "post": {
+                "description": "Send URL with authentication token to display password reset page to the email if the email is active. Otherwise redirect to forgot password page.",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserAuth"
+                ],
+                "summary": "Send Email with url for authentication",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "email as userID",
+                        "name": "email",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {},
+                    "400": {
+                        "description": "The user can't send password reset email",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/password/reset": {
+            "post": {
+                "description": "Get the user by token and reset password of the user.",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserAuth"
+                ],
+                "summary": "Reset a password",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "password",
+                        "name": "password",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {},
+                    "409": {
+                        "description": "The user can't reset the password",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/products": {
+            "get": {
+                "description": "Display products of the user",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Display products of user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/outputdata.Product"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Product list is not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Register a new product. ID is generated by random string generation",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Register a new product",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "brand id",
+                        "name": "brand-id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "product name",
+                        "name": "name",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "category id: min=1, max=1",
+                        "name": "category-id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "genre id",
+                        "name": "genre-id",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "price",
+                        "name": "price",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "product imgage name",
+                        "name": "image",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "description",
+                        "name": "description",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "draft or not",
+                        "name": "is-draft",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "product",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "409": {
+                        "description": "The user can't register a product",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/products/new": {
+            "get": {
+                "description": "Display page for creating a new product",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Display product register page",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {}
+                }
+            }
+        },
+        "/products/{id}": {
+            "get": {
+                "description": "Display a product got by the id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Display a product of user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Product",
+                        "schema": {
+                            "$ref": "#/definitions/outputdata.Product"
+                        }
+                    },
+                    "404": {
+                        "description": "The product is not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "DDelete a product got by the id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Delete a product",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {},
+                    "409": {
+                        "description": "The user can't delete a product",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "Edit a product got by the product id",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Edit a product",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "product id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "brand id",
+                        "name": "brand-id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "product name",
+                        "name": "name",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "category id: min=1, max=1",
+                        "name": "category-id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "genre id",
+                        "name": "genre-id",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "price",
+                        "name": "price",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "product Imgage name",
+                        "name": "image",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "description",
+                        "name": "description",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "draft or not",
+                        "name": "is-draft",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "product",
+                        "schema": {
+                            "$ref": "#/definitions/outputdata.Product"
+                        }
+                    },
+                    "409": {
+                        "description": "Cannot edit a product",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/products/{id}/edit": {
+            "get": {
+                "description": "Display edit page of a product got by the id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Display edit page of a product",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "product",
+                        "schema": {
+                            "$ref": "#/definitions/outputdata.Product"
+                        }
+                    },
+                    "404": {
+                        "description": "The user can't get the product",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/profile": {
+            "post": {
+                "description": "Get the user by cookie value and update user infomation of the user",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Create user infomation",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "id:1",
+                        "name": "activity",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "id:1",
+                        "name": "industry",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "company",
+                        "name": "company",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "id:1",
+                        "name": "country",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "address1",
+                        "name": "address1",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "address2",
+                        "name": "address2",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "zip code",
+                        "name": "zip_code",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "url",
+                        "name": "url",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "phone",
+                        "name": "phone",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "account id",
+                        "name": "account_id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "icon image",
+                        "name": "logo",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "first name",
+                        "name": "first_name",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "middle name",
+                        "name": "middle_name",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "family name",
+                        "name": "family_name",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "file",
+                        "description": "icon",
+                        "name": "icon",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "json:Company,Owner,Number1,Number2,Number3,Number4,Month,Year,SecurityCode",
+                        "name": "card",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User infomation",
+                        "schema": {
+                            "$ref": "#/definitions/outputdata.Profile"
+                        }
+                    },
+                    "400": {
+                        "description": "Validation error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "409": {
+                        "description": "Can't register user infomation",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "Update user infomation",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Update user infomation",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "id:1",
+                        "name": "activity",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "id:1",
+                        "name": "industry",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "company",
+                        "name": "company",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "id:1",
+                        "name": "country",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "address1",
+                        "name": "address1",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "address2",
+                        "name": "address2",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "zip code",
+                        "name": "zip_code",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "url",
+                        "name": "url",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "phone",
+                        "name": "phone",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "account id",
+                        "name": "account_id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "icon image",
+                        "name": "logo",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "first name",
+                        "name": "first_name",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "middle name",
+                        "name": "middle_name",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "family name",
+                        "name": "family_name",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "file",
+                        "description": "icon",
+                        "name": "icon",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "json:Company,Owner,Number1,Number2,Number3,Number4,Month,Year,SecurityCode",
+                        "name": "card",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {},
+                    "400": {
+                        "description": "Validation error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "User infomation is not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/profile/:id": {
+            "get": {
+                "description": "Get the user and his profile by cookie value and display profile page",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Display a profile",
+                "responses": {
+                    "200": {
+                        "description": "Profile",
+                        "schema": {
+                            "$ref": "#/definitions/outputdata.PublicUser"
+                        }
+                    },
+                    "404": {
+                        "description": "Profile is not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/profile/brandlike": {
+            "get": {
+                "description": "Display brand like got by the user id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Display brand like",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Brand like",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/outputdata.Brand"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Brand like is not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/profile/edit": {
+            "get": {
+                "description": "Get the user and his profile by cookie value and display profile edit page",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Display a profile edit page",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User infomation",
+                        "schema": {
+                            "$ref": "#/definitions/outputdata.Profile"
+                        }
+                    },
+                    "404": {
+                        "description": "User infomation is not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/profile/new": {
+            "get": {
+                "description": "Display user infomation register page",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Display user infomation register page",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User infomation select item",
+                        "schema": {
+                            "$ref": "#/definitions/outputdata.ProfileSelectItem"
+                        }
+                    }
+                }
+            }
+        },
+        "/projects": {
+            "get": {
+                "description": "Display projects of the user",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Display projects of user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/outputdata.Project"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Project list is not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new project. ID is generated by random string generation",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Create a new project",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "project name",
+                        "name": "name",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "brand",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "409": {
+                        "description": "The user can't register a project",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/projects/new": {
+            "get": {
+                "description": "Display page for creating a new project",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Display project register page",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {}
+                }
+            }
+        },
+        "/projects/{id}": {
+            "get": {
+                "description": "Display a project got by the id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Display a project of user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Project ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Project",
+                        "schema": {
+                            "$ref": "#/definitions/outputdata.Project"
+                        }
+                    },
+                    "404": {
+                        "description": "The project is not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete a project got by the id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Delete a project",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Project ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {},
+                    "409": {
+                        "description": "The user can't delete the project",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "Update a project got by the id",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Edit a project",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Project ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Project Name",
+                        "name": "name",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "project",
+                        "schema": {
+                            "$ref": "#/definitions/outputdata.Project"
+                        }
+                    },
+                    "409": {
+                        "description": "The user can't edit the project",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/projects/{id}/edit": {
+            "get": {
+                "description": "Display edit page of a project got by the id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Display edit page of a project",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Project ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "project",
+                        "schema": {
+                            "$ref": "#/definitions/outputdata.Project"
+                        }
+                    },
+                    "404": {
+                        "description": "The user can't get the product",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/search/product": {
+            "get": {
+                "description": "Pass all product list to the front",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Display products search page",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "keyword",
+                        "name": "keyword",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/outputdata.Product"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Can't display product search page",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/signin": {
+            "get": {
+                "description": "Display my page if the user is logged in",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserAuth"
+                ],
+                "summary": "Display signin page",
+                "responses": {
+                    "200": {}
+                }
+            },
+            "post": {
+                "description": "Generate cookie for login discrimination if email and password match DB. Otherwise redirect to sign in page.",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserAuth"
+                ],
+                "summary": "Sign in",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "email",
+                        "name": "email",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "password",
+                        "name": "password",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "IsSigninClear and JwtToken",
+                        "schema": {
+                            "$ref": "#/definitions/outputdata.SignIn"
+                        }
+                    },
+                    "409": {
+                        "description": "Email or Password is incorrect",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/signout": {
+            "post": {
+                "description": "Delete cookie for login discrimination",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserAuth"
+                ],
+                "summary": "Signout",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwt token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {}
+                }
+            }
+        },
+        "/signup": {
+            "get": {
+                "description": "Display sign up page if the user is not logged in",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserAuth"
+                ],
+                "summary": "Display signup page",
+                "responses": {
+                    "200": {}
+                }
+            },
+            "post": {
+                "description": "Redirect to signup page if email overlaps with an existing email",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserAuth"
+                ],
+                "summary": "Provisionally sign up",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "email",
+                        "name": "email",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "password",
+                        "name": "password",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {},
+                    "400": {
+                        "description": "Validation error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "409": {
+                        "description": "The user can't sign up",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "inputdata.ChatMessageRequest": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "roomID": {
+                    "type": "string"
+                }
+            }
+        },
+        "inputdata.InventoryRequest": {
+            "type": "object",
+            "properties": {
+                "updateList": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "productID": {
+                                "type": "string"
+                            },
+                            "quantity": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "inputdata.Purchase": {
+            "type": "object",
+            "properties": {
+                "productID": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "integer"
+                }
+            }
+        },
+        "inputdata.PurchaseRequest": {
+            "type": "object",
+            "properties": {
+                "purchaseList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/inputdata.Purchase"
+                    }
+                }
+            }
+        },
+        "inputdata.StocktakingRequest": {
+            "type": "object",
+            "properties": {
+                "updateList": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "productID": {
+                                "type": "string"
+                            },
+                            "stock": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "outputdata.Account": {
+            "type": "object",
+            "properties": {
+                "balance": {
+                    "type": "number"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "object",
+                    "$ref": "#/definitions/outputdata.AccountName"
+                },
+                "type": {
+                    "type": "object",
+                    "$ref": "#/definitions/outputdata.AccountType"
+                },
+                "userID": {
+                    "type": "string"
+                }
+            }
+        },
+        "outputdata.AccountItem": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "outputdata.AccountName": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "outputdata.AccountType": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "outputdata.Brand": {
+            "type": "object",
+            "required": [
+                "category",
+                "id",
+                "name",
+                "user"
+            ],
+            "properties": {
+                "category": {
+                    "type": "object",
+                    "$ref": "#/definitions/outputdata.Category"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "logoImage": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "slogan": {
+                    "type": "string"
+                },
+                "user": {
+                    "type": "object",
+                    "$ref": "#/definitions/outputdata.UserSimplified"
+                }
+            }
+        },
+        "outputdata.BrandSimplified": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "outputdata.Category": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "outputdata.ChatMessage": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "receiver": {
+                    "type": "string"
+                },
+                "sender": {
+                    "type": "string"
+                }
+            }
+        },
+        "outputdata.Inventory": {
+            "type": "object",
+            "properties": {
+                "inventory": {
+                    "type": "object",
+                    "$ref": "#/definitions/outputdata.ProductInventory"
+                },
+                "management": {
+                    "type": "object",
+                    "$ref": "#/definitions/outputdata.ProductManagement"
+                },
+                "product": {
+                    "type": "object",
+                    "$ref": "#/definitions/outputdata.Product"
+                }
+            }
+        },
+        "outputdata.Option": {
+            "type": "object",
+            "properties": {
+                "text": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "outputdata.Payee": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "outputdata.Product": {
+            "type": "object",
+            "properties": {
+                "brand": {
+                    "type": "object",
+                    "$ref": "#/definitions/outputdata.BrandSimplified"
+                },
+                "category": {
+                    "type": "object",
+                    "$ref": "#/definitions/outputdata.Category"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "genreID": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "user": {
+                    "type": "object",
+                    "$ref": "#/definitions/outputdata.UserSimplified"
+                }
+            }
+        },
+        "outputdata.ProductInventory": {
+            "type": "object",
+            "properties": {
+                "disposal": {
+                    "type": "integer"
+                },
+                "productID": {
+                    "type": "string"
+                },
+                "receiving": {
+                    "type": "integer"
+                },
+                "shipping": {
+                    "type": "integer"
+                },
+                "stock": {
+                    "type": "integer"
+                }
+            }
+        },
+        "outputdata.ProductManagement": {
+            "type": "object",
+            "properties": {
+                "barcode": {
+                    "type": "string"
+                },
+                "memo": {
+                    "type": "string"
+                },
+                "productID": {
+                    "type": "string"
+                },
+                "storage": {
+                    "type": "string"
+                }
+            }
+        },
+        "outputdata.Profile": {
+            "type": "object",
+            "properties": {
+                "accountID": {
+                    "type": "string"
+                },
+                "activity": {
+                    "type": "string"
+                },
+                "address1": {
+                    "type": "string"
+                },
+                "address2": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "company": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "familyName": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "icon": {
+                    "type": "string"
+                },
+                "industry": {
+                    "type": "string"
+                },
+                "language": {
+                    "type": "string"
+                },
+                "logo": {
+                    "type": "string"
+                },
+                "middleName": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "zipCode": {
+                    "type": "string"
+                }
+            }
+        },
+        "outputdata.ProfileSelectItem": {
+            "type": "object",
+            "properties": {
+                "cardCompanies": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/outputdata.Option"
+                    }
+                },
+                "countries": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/outputdata.Option"
+                    }
+                },
+                "industries": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/outputdata.Option"
+                    }
+                }
+            }
+        },
+        "outputdata.Project": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "user": {
+                    "type": "object",
+                    "$ref": "#/definitions/outputdata.UserSimplified"
+                }
+            }
+        },
+        "outputdata.PublicUser": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "outputdata.SignIn": {
+            "type": "object",
+            "properties": {
+                "jwt": {
+                    "type": "string"
+                },
+                "user": {
+                    "type": "object",
+                    "$ref": "#/definitions/outputdata.User"
+                }
+            }
+        },
+        "outputdata.Transaction": {
+            "type": "object",
+            "required": [
+                "account",
+                "accountItem",
+                "accrualDate",
+                "amount",
+                "id",
+                "partner",
+                "user"
+            ],
+            "properties": {
+                "account": {
+                    "type": "object",
+                    "$ref": "#/definitions/outputdata.TransactionAccount"
+                },
+                "accountItem": {
+                    "type": "object",
+                    "$ref": "#/definitions/outputdata.AccountItem"
+                },
+                "accrualDate": {
+                    "type": "string"
+                },
+                "amount": {
+                    "type": "number"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "isIncome": {
+                    "type": "boolean"
+                },
+                "isPaid": {
+                    "type": "boolean"
+                },
+                "partner": {
+                    "type": "object",
+                    "$ref": "#/definitions/outputdata.TransactionPartner"
+                },
+                "remarks": {
+                    "type": "string"
+                },
+                "user": {
+                    "type": "object",
+                    "$ref": "#/definitions/outputdata.UserSimplified"
+                }
+            }
+        },
+        "outputdata.TransactionAccount": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "outputdata.TransactionPartner": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "outputdata.User": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "profile": {
+                    "type": "object",
+                    "$ref": "#/definitions/outputdata.Profile"
+                }
+            }
+        },
+        "outputdata.UserSimplified": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "UserAuth"
+        },
+        {
+            "name": "Profile"
+        },
+        {
+            "name": "Order"
+        },
+        {
+            "name": "Brand"
+        },
+        {
+            "name": "Product"
+        },
+        {
+            "name": "Project"
+        },
+        {
+            "name": "Search"
+        },
+        {
+            "name": "Inventory"
+        }
+    ]
+}

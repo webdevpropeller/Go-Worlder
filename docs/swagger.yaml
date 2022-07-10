@@ -1,0 +1,2531 @@
+basePath: /api
+definitions:
+  inputdata.ChatMessageRequest:
+    properties:
+      content:
+        type: string
+      roomID:
+        type: string
+    type: object
+  inputdata.InventoryRequest:
+    properties:
+      updateList:
+        items:
+          properties:
+            productID:
+              type: string
+            quantity:
+              type: integer
+          type: object
+        type: array
+    type: object
+  inputdata.Purchase:
+    properties:
+      productID:
+        type: string
+      quantity:
+        type: integer
+    type: object
+  inputdata.PurchaseRequest:
+    properties:
+      purchaseList:
+        items:
+          $ref: '#/definitions/inputdata.Purchase'
+        type: array
+    type: object
+  inputdata.StocktakingRequest:
+    properties:
+      updateList:
+        items:
+          properties:
+            productID:
+              type: string
+            stock:
+              type: integer
+          type: object
+        type: array
+    type: object
+  outputdata.Account:
+    properties:
+      balance:
+        type: number
+      id:
+        type: string
+      name:
+        $ref: '#/definitions/outputdata.AccountName'
+        type: object
+      type:
+        $ref: '#/definitions/outputdata.AccountType'
+        type: object
+      userID:
+        type: string
+    type: object
+  outputdata.AccountItem:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  outputdata.AccountName:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  outputdata.AccountType:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  outputdata.Brand:
+    properties:
+      category:
+        $ref: '#/definitions/outputdata.Category'
+        type: object
+      description:
+        type: string
+      id:
+        type: string
+      logoImage:
+        type: string
+      name:
+        type: string
+      slogan:
+        type: string
+      user:
+        $ref: '#/definitions/outputdata.UserSimplified'
+        type: object
+    required:
+    - category
+    - id
+    - name
+    - user
+    type: object
+  outputdata.BrandSimplified:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  outputdata.Category:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  outputdata.ChatMessage:
+    properties:
+      content:
+        type: string
+      id:
+        type: string
+      receiver:
+        type: string
+      sender:
+        type: string
+    type: object
+  outputdata.Inventory:
+    properties:
+      inventory:
+        $ref: '#/definitions/outputdata.ProductInventory'
+        type: object
+      management:
+        $ref: '#/definitions/outputdata.ProductManagement'
+        type: object
+      product:
+        $ref: '#/definitions/outputdata.Product'
+        type: object
+    type: object
+  outputdata.Option:
+    properties:
+      text:
+        type: string
+      value:
+        type: string
+    type: object
+  outputdata.Payee:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  outputdata.Product:
+    properties:
+      brand:
+        $ref: '#/definitions/outputdata.BrandSimplified'
+        type: object
+      category:
+        $ref: '#/definitions/outputdata.Category'
+        type: object
+      description:
+        type: string
+      genreID:
+        type: integer
+      id:
+        type: string
+      image:
+        type: string
+      name:
+        type: string
+      price:
+        type: integer
+      user:
+        $ref: '#/definitions/outputdata.UserSimplified'
+        type: object
+    type: object
+  outputdata.ProductInventory:
+    properties:
+      disposal:
+        type: integer
+      productID:
+        type: string
+      receiving:
+        type: integer
+      shipping:
+        type: integer
+      stock:
+        type: integer
+    type: object
+  outputdata.ProductManagement:
+    properties:
+      barcode:
+        type: string
+      memo:
+        type: string
+      productID:
+        type: string
+      storage:
+        type: string
+    type: object
+  outputdata.Profile:
+    properties:
+      accountID:
+        type: string
+      activity:
+        type: string
+      address1:
+        type: string
+      address2:
+        type: string
+      city:
+        type: string
+      company:
+        type: string
+      country:
+        type: string
+      familyName:
+        type: string
+      firstName:
+        type: string
+      icon:
+        type: string
+      industry:
+        type: string
+      language:
+        type: string
+      logo:
+        type: string
+      middleName:
+        type: string
+      phone:
+        type: string
+      state:
+        type: string
+      url:
+        type: string
+      zipCode:
+        type: string
+    type: object
+  outputdata.ProfileSelectItem:
+    properties:
+      cardCompanies:
+        items:
+          $ref: '#/definitions/outputdata.Option'
+        type: array
+      countries:
+        items:
+          $ref: '#/definitions/outputdata.Option'
+        type: array
+      industries:
+        items:
+          $ref: '#/definitions/outputdata.Option'
+        type: array
+    type: object
+  outputdata.Project:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      user:
+        $ref: '#/definitions/outputdata.UserSimplified'
+        type: object
+    type: object
+  outputdata.PublicUser:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  outputdata.SignIn:
+    properties:
+      jwt:
+        type: string
+      user:
+        $ref: '#/definitions/outputdata.User'
+        type: object
+    type: object
+  outputdata.Transaction:
+    properties:
+      account:
+        $ref: '#/definitions/outputdata.TransactionAccount'
+        type: object
+      accountItem:
+        $ref: '#/definitions/outputdata.AccountItem'
+        type: object
+      accrualDate:
+        type: string
+      amount:
+        type: number
+      id:
+        type: string
+      isIncome:
+        type: boolean
+      isPaid:
+        type: boolean
+      partner:
+        $ref: '#/definitions/outputdata.TransactionPartner'
+        type: object
+      remarks:
+        type: string
+      user:
+        $ref: '#/definitions/outputdata.UserSimplified'
+        type: object
+    required:
+    - account
+    - accountItem
+    - accrualDate
+    - amount
+    - id
+    - partner
+    - user
+    type: object
+  outputdata.TransactionAccount:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  outputdata.TransactionPartner:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  outputdata.User:
+    properties:
+      email:
+        type: string
+      id:
+        type: string
+      profile:
+        $ref: '#/definitions/outputdata.Profile'
+        type: object
+    type: object
+  outputdata.UserSimplified:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+host: 118.27.23.183:8080
+info:
+  contact: {}
+  description: This is a prototype worlder server
+  license:
+    name: Worlder Team
+  title: Worlder Prototype API
+  version: "1.0"
+paths:
+  /:
+    get:
+      description: Display home page if the user is not logged in
+      produces:
+      - application/json
+      responses:
+        "200": {}
+      summary: Display home page
+  /accounting/accounts:
+    get:
+      description: Get account list by user id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/outputdata.Account'
+            type: array
+        "404":
+          description: Account list is not found
+          schema:
+            type: string
+      tags:
+      - Account
+    post:
+      consumes:
+      - multipart/form-data
+      description: Register an account
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: account name id
+        in: formData
+        name: account-name-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "409":
+          description: The user can't register an account
+          schema:
+            type: string
+      summary: Register an account
+      tags:
+      - Account
+  /accounting/accounts/{id}:
+    delete:
+      description: Delete a account got by the id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "409":
+          description: The user can't delete the account
+          schema:
+            type: string
+      summary: Delete a account
+      tags:
+      - Account
+    get:
+      description: Get an account by id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: account
+          schema:
+            $ref: '#/definitions/outputdata.Account'
+        "404":
+          description: The user can't get the account
+          schema:
+            type: string
+      tags:
+      - Account
+  /accounting/accounts/new:
+    get:
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: accountNameList
+          schema:
+            items:
+              $ref: '#/definitions/outputdata.AccountName'
+            type: array
+      tags:
+      - Account
+  /accounting/transactions:
+    get:
+      description: Display balance of payment management page, getting transaction data from database
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: transaction List
+          schema:
+            items:
+              $ref: '#/definitions/outputdata.Transaction'
+            type: array
+        "404":
+          description: Transactions is not found
+          schema:
+            type: string
+      summary: Display balance of payment management page
+      tags:
+      - Transaction
+    post:
+      consumes:
+      - multipart/form-data
+      description: Register transaction
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: income or expenditure
+        in: formData
+        name: is-income
+        required: true
+        type: boolean
+      - description: is-paid
+        in: formData
+        name: is-paid
+        required: true
+        type: boolean
+      - description: account-id
+        in: formData
+        name: account-id
+        required: true
+        type: string
+      - description: accrual date
+        in: formData
+        name: accrual-date
+        required: true
+        type: string
+      - description: account item id, 1
+        in: formData
+        name: account-item-id
+        required: true
+        type: string
+      - description: partner-id
+        in: formData
+        name: partner-id
+        required: true
+        type: string
+      - description: amount
+        in: formData
+        name: amount
+        required: true
+        type: number
+      - description: remarks
+        in: formData
+        name: remarks
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "409":
+          description: The user can't register transaction
+          schema:
+            type: string
+      summary: Register transaction
+      tags:
+      - Transaction
+  /accounting/transactions/{id}:
+    delete:
+      description: Delete a transaction got by the id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Transaction ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "409":
+          description: The user can't delete the transaction
+          schema:
+            type: string
+      summary: Delete a transaction
+      tags:
+      - Transaction
+    patch:
+      consumes:
+      - multipart/form-data
+      description: Edit a transaction
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Transaction ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: income or expenditure
+        in: formData
+        name: is-income
+        required: true
+        type: boolean
+      - description: is-paid
+        in: formData
+        name: is-paid
+        required: true
+        type: boolean
+      - description: account-id
+        in: formData
+        name: account-id
+        required: true
+        type: string
+      - description: accrual date
+        in: formData
+        name: accrual-date
+        required: true
+        type: string
+      - description: account item id, 1
+        in: formData
+        name: account-item-id
+        required: true
+        type: integer
+      - description: partner-id
+        in: formData
+        name: partner-id
+        required: true
+        type: string
+      - description: amount
+        in: formData
+        name: amount
+        required: true
+        type: number
+      - description: remarks
+        in: formData
+        name: remarks
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "409":
+          description: The user can't edit a transaction
+          schema:
+            type: string
+      summary: Edit a transaction
+      tags:
+      - Transaction
+  /accounting/transactions/{id}/edit:
+    get:
+      description: Display edit page of a transaction got by the id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Transaction ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: transaction
+          schema:
+            $ref: '#/definitions/outputdata.Transaction'
+        "404":
+          description: The user can't get the transaction
+          schema:
+            type: string
+      summary: Display edit page of a transaction
+      tags:
+      - Transaction
+  /accounting/transactions/accounts/{id}:
+    get:
+      description: Display balance of payment management page, getting transaction data from database
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "404":
+          description: Transactions is not found
+          schema:
+            type: string
+      summary: Display balance of payment management page
+      tags:
+      - Transaction
+  /accounting/transactions/new:
+    get:
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: accountItemList
+          schema:
+            items:
+              $ref: '#/definitions/outputdata.AccountItem'
+            type: array
+      tags:
+      - Transaction
+  /accounting/transactions/payees:
+    get:
+      description: Display payee list
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Payee list
+          schema:
+            items:
+              $ref: '#/definitions/outputdata.Payee'
+            type: array
+        "404":
+          description: The user can't get payee list
+          schema:
+            type: string
+      summary: Display payee list
+      tags:
+      - Payee
+    post:
+      consumes:
+      - multipart/form-data
+      description: Register a payee
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: remarks
+        in: formData
+        name: name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "409":
+          description: The user can't create a payee
+          schema:
+            type: string
+      summary: Register a payee
+      tags:
+      - Payee
+  /accounting/transactions/payees/{id}:
+    delete:
+      consumes:
+      - multipart/form-data
+      description: Delete a payee
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Payee ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "409":
+          description: The user can't create a payee
+          schema:
+            type: string
+      summary: Delete a payee
+      tags:
+      - Payee
+    patch:
+      consumes:
+      - multipart/form-data
+      description: Edit a payee got by the payee id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: payee id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: payee name
+        in: formData
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: payee
+          schema:
+            $ref: '#/definitions/outputdata.Payee'
+        "409":
+          description: The user can't update the payee
+          schema:
+            type: string
+      summary: Edit payee
+      tags:
+      - Payee
+  /activate:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Make the user active if the authentication token of the URL sent to the user's mail exists in the DB
+      parameters:
+      - description: token
+        in: query
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "404":
+          description: generate error message 'Token is invalid'
+          schema:
+            type: string
+      summary: Completely sign up
+      tags:
+      - UserAuth
+  /api/orders:
+    post:
+      consumes:
+      - application/json
+      description: Purchase products
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Purchase request
+        in: body
+        name: purchaseList
+        required: true
+        schema:
+          $ref: '#/definitions/inputdata.PurchaseRequest'
+      - description: total amount
+        in: formData
+        name: total-amount
+        required: true
+        type: number
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "409":
+          description: The user can't purchase products
+          schema:
+            type: string
+      summary: Purchase products
+      tags:
+      - Order
+  /brands:
+    get:
+      description: Get brands by user id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Brand list
+          schema:
+            items:
+              $ref: '#/definitions/outputdata.Brand'
+            type: array
+        "404":
+          description: Brand list is not found
+          schema:
+            type: string
+      summary: Get brands
+      tags:
+      - Brand
+    post:
+      consumes:
+      - multipart/form-data
+      description: Register a new brand. ID is generated by random string generation
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: brand name
+        in: formData
+        name: brand-name
+        required: true
+        type: string
+      - description: 'category id: min=1, max=1'
+        in: formData
+        name: category-id
+        required: true
+        type: integer
+      - description: slogan
+        in: formData
+        name: slogan
+        required: true
+        type: string
+      - description: description
+        in: formData
+        name: description
+        required: true
+        type: string
+      - description: brand logo image
+        in: formData
+        name: logo-image
+        type: file
+      - description: draft or not
+        in: formData
+        name: is-draft
+        required: true
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: brand
+          schema:
+            type: string
+        "409":
+          description: The user can't register a brand
+          schema:
+            type: string
+      summary: Register a new brand
+      tags:
+      - Brand
+  /brands/{id}:
+    delete:
+      description: Delete a brand got by the id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Brand ID:registered
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "409":
+          description: The user can't delete the brand
+          schema:
+            type: string
+      summary: Delete a brand
+      tags:
+      - Brand
+    get:
+      description: Get a brand by id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Brand ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Brand
+          schema:
+            $ref: '#/definitions/outputdata.Brand'
+        "404":
+          description: The Brand is not found
+          schema:
+            type: string
+      summary: Get a brand
+      tags:
+      - Brand
+    patch:
+      consumes:
+      - multipart/form-data
+      description: Edit a brand got by the brand id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Brand ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: brand name
+        in: formData
+        name: brand-name
+        required: true
+        type: string
+      - description: 'category id: min=1, max=1'
+        in: formData
+        name: category-id
+        required: true
+        type: integer
+      - description: slogan
+        in: formData
+        name: slogan
+        required: true
+        type: string
+      - description: description
+        in: formData
+        name: description
+        required: true
+        type: string
+      - description: brand logo image
+        in: formData
+        name: logo-image
+        type: file
+      - description: draft or not
+        in: formData
+        name: is-draft
+        required: true
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: brand
+          schema:
+            $ref: '#/definitions/outputdata.Brand'
+        "409":
+          description: The user can't edit the brand
+          schema:
+            type: string
+      summary: Edit a brand
+      tags:
+      - Brand
+  /brands/{id}/edit:
+    get:
+      description: Get the brand if the user is owner
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Brand ID:registered
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: brand
+          schema:
+            $ref: '#/definitions/outputdata.Brand'
+        "404":
+          description: The user can't get the brand
+          schema:
+            type: string
+      summary: Get the brand
+      tags:
+      - Brand
+  /brands/{id}/like:
+    delete:
+      description: Delete a brandLike got by the id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Brand ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "409":
+          description: The user can't delete the brandLike
+          schema:
+            type: string
+      summary: Delete a brandLike
+      tags:
+      - BrandLike
+    get:
+      description: Get brand like list by user id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Brand id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/outputdata.Brand'
+            type: array
+        "404":
+          description: Brand list is not found
+          schema:
+            type: string
+      tags:
+      - BrandLike
+    post:
+      consumes:
+      - multipart/form-data
+      description: Register an brandLike
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Brand id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "409":
+          description: Can't register an brandLike
+          schema:
+            type: string
+      summary: Register an brandLike
+      tags:
+      - BrandLike
+  /brands/new:
+    get:
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+      tags:
+      - Brand
+  /chat/:id:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: messanger id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Message list
+          schema:
+            items:
+              $ref: '#/definitions/outputdata.ChatMessage'
+            type: array
+        "400": {}
+      summary: Get messages
+      tags:
+      - Chat
+  /chat/destinations:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "400": {}
+      summary: Get destinations
+      tags:
+      - Chat
+  /chat/ws:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Upgrade
+        in: header
+        name: Connection
+        required: true
+        type: string
+      - description: websocket
+        in: header
+        name: Upgrade
+        required: true
+        type: string
+      - description: Receiving request
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/inputdata.ChatMessageRequest'
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "400": {}
+      summary: Get WebSocket
+      tags:
+      - Chat
+  /inventory/disposal:
+    get:
+      description: Display receiving page
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Inventory
+          schema:
+            items:
+              $ref: '#/definitions/outputdata.Inventory'
+            type: array
+        "404":
+          description: Disposal list is not found
+          schema:
+            type: string
+      summary: Display receiving page
+      tags:
+      - Inventory
+    post:
+      consumes:
+      - application/json
+      description: Display receiving list of the user
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Receiving request
+        in: body
+        name: updateList
+        required: true
+        schema:
+          $ref: '#/definitions/inputdata.InventoryRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Inventory
+          schema:
+            items:
+              $ref: '#/definitions/outputdata.Inventory'
+            type: array
+        "404":
+          description: The user can't recieve
+          schema:
+            type: string
+      summary: Display receiving list of the user
+      tags:
+      - Inventory
+  /inventory/list:
+    get:
+      description: Get inventory list by user id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Inventory
+          schema:
+            items:
+              $ref: '#/definitions/outputdata.Inventory'
+            type: array
+        "404":
+          description: Inventory list is not found
+          schema:
+            type: string
+      summary: Get inventory list
+      tags:
+      - Inventory
+  /inventory/list/{id}:
+    get:
+      description: Display a product by the id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Inventory
+          schema:
+            $ref: '#/definitions/outputdata.Inventory'
+        "404":
+          description: The product is not found
+          schema:
+            type: string
+      summary: Display a product
+      tags:
+      - Inventory
+    patch:
+      consumes:
+      - multipart/form-data
+      description: Display a product by the id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: storage
+        in: formData
+        name: storage
+        type: string
+      - description: memo
+        in: formData
+        name: memo
+        type: string
+      - description: barcode
+        in: formData
+        name: barcode
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Inventory
+          schema:
+            $ref: '#/definitions/outputdata.Inventory'
+        "404":
+          description: The product is not found
+          schema:
+            type: string
+      summary: Display a product
+      tags:
+      - Inventory
+  /inventory/list/{id}/edit:
+    get:
+      description: Display a product by the id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Inventory
+          schema:
+            $ref: '#/definitions/outputdata.Inventory'
+        "404":
+          description: The product is not found
+          schema:
+            type: string
+      summary: Display a product
+      tags:
+      - Inventory
+  /inventory/receiving:
+    get:
+      description: Display receiving page
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Inventory
+          schema:
+            items:
+              $ref: '#/definitions/outputdata.Inventory'
+            type: array
+        "404":
+          description: Receiving list is not found
+          schema:
+            type: string
+      summary: Display receiving page
+      tags:
+      - Inventory
+    post:
+      consumes:
+      - application/json
+      description: Create receiving list
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Receiving request
+        in: body
+        name: updateList
+        required: true
+        schema:
+          $ref: '#/definitions/inputdata.InventoryRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Inventory
+          schema:
+            items:
+              $ref: '#/definitions/outputdata.Inventory'
+            type: array
+        "404":
+          description: The user can't recieve
+          schema:
+            type: string
+      summary: Create receiving list
+      tags:
+      - Inventory
+  /inventory/shipping:
+    get:
+      description: Get shipping list by user id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Inventory
+          schema:
+            items:
+              $ref: '#/definitions/outputdata.Inventory'
+            type: array
+        "404":
+          description: Shipping list is not found
+          schema:
+            type: string
+      summary: Get shipping list
+      tags:
+      - Inventory
+    post:
+      consumes:
+      - application/json
+      description: Display receiving list of the user
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Receiving request
+        in: body
+        name: updateList
+        required: true
+        schema:
+          $ref: '#/definitions/inputdata.InventoryRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Inventory
+          schema:
+            items:
+              $ref: '#/definitions/outputdata.Inventory'
+            type: array
+        "404":
+          description: The user can't recieve
+          schema:
+            type: string
+      summary: Display receiving list of the user
+      tags:
+      - Inventory
+  /inventory/stocktaking:
+    get:
+      description: Display receiving page
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Inventory
+          schema:
+            items:
+              $ref: '#/definitions/outputdata.Inventory'
+            type: array
+        "404":
+          description: Stocktaking list is not found
+          schema:
+            type: string
+      summary: Display receiving page
+      tags:
+      - Inventory
+    post:
+      consumes:
+      - multipart/form-data
+      description: Display receiving list of the user
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Receiving request
+        in: body
+        name: updateList
+        required: true
+        schema:
+          $ref: '#/definitions/inputdata.StocktakingRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Inventory
+          schema:
+            items:
+              $ref: '#/definitions/outputdata.Inventory'
+            type: array
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      summary: Display receiving list of the user
+      tags:
+      - Inventory
+  /password/forgot:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Send URL with authentication token to display password reset page to the email if the email is active. Otherwise redirect to forgot password page.
+      parameters:
+      - description: email as userID
+        in: formData
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "400":
+          description: The user can't send password reset email
+          schema:
+            type: string
+      summary: Send Email with url for authentication
+      tags:
+      - UserAuth
+  /password/reset:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Get the user by token and reset password of the user.
+      parameters:
+      - description: token
+        in: formData
+        name: token
+        required: true
+        type: string
+      - description: password
+        in: formData
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "409":
+          description: The user can't reset the password
+          schema:
+            type: string
+      summary: Reset a password
+      tags:
+      - UserAuth
+  /products:
+    get:
+      description: Display products of the user
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/outputdata.Product'
+            type: array
+        "404":
+          description: Product list is not found
+          schema:
+            type: string
+      summary: Display products of user
+      tags:
+      - Product
+    post:
+      consumes:
+      - multipart/form-data
+      description: Register a new product. ID is generated by random string generation
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: brand id
+        in: formData
+        name: brand-id
+        required: true
+        type: string
+      - description: product name
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: 'category id: min=1, max=1'
+        in: formData
+        name: category-id
+        required: true
+        type: integer
+      - description: genre id
+        in: formData
+        name: genre-id
+        type: integer
+      - description: price
+        in: formData
+        name: price
+        required: true
+        type: integer
+      - description: product imgage name
+        in: formData
+        name: image
+        type: file
+      - description: description
+        in: formData
+        name: description
+        type: string
+      - description: draft or not
+        in: formData
+        name: is-draft
+        required: true
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: product
+          schema:
+            type: string
+        "409":
+          description: The user can't register a product
+          schema:
+            type: string
+      summary: Register a new product
+      tags:
+      - Product
+  /products/{id}:
+    delete:
+      description: DDelete a product got by the id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "409":
+          description: The user can't delete a product
+          schema:
+            type: string
+      summary: Delete a product
+      tags:
+      - Product
+    get:
+      description: Display a product got by the id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Product
+          schema:
+            $ref: '#/definitions/outputdata.Product'
+        "404":
+          description: The product is not found
+          schema:
+            type: string
+      summary: Display a product of user
+      tags:
+      - Product
+    patch:
+      consumes:
+      - multipart/form-data
+      description: Edit a product got by the product id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: product id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: brand id
+        in: formData
+        name: brand-id
+        required: true
+        type: string
+      - description: product name
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: 'category id: min=1, max=1'
+        in: formData
+        name: category-id
+        required: true
+        type: integer
+      - description: genre id
+        in: formData
+        name: genre-id
+        type: integer
+      - description: price
+        in: formData
+        name: price
+        required: true
+        type: integer
+      - description: product Imgage name
+        in: formData
+        name: image
+        type: file
+      - description: description
+        in: formData
+        name: description
+        type: string
+      - description: draft or not
+        in: formData
+        name: is-draft
+        required: true
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: product
+          schema:
+            $ref: '#/definitions/outputdata.Product'
+        "409":
+          description: Cannot edit a product
+          schema:
+            type: string
+      summary: Edit a product
+      tags:
+      - Product
+  /products/{id}/edit:
+    get:
+      description: Display edit page of a product got by the id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: product
+          schema:
+            $ref: '#/definitions/outputdata.Product'
+        "404":
+          description: The user can't get the product
+          schema:
+            type: string
+      summary: Display edit page of a product
+      tags:
+      - Product
+  /products/new:
+    get:
+      description: Display page for creating a new product
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+      summary: Display product register page
+      tags:
+      - Product
+  /profile:
+    patch:
+      consumes:
+      - multipart/form-data
+      description: Update user infomation
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: id:1
+        in: formData
+        name: activity
+        required: true
+        type: string
+      - description: id:1
+        in: formData
+        name: industry
+        required: true
+        type: string
+      - description: company
+        in: formData
+        name: company
+        required: true
+        type: string
+      - description: id:1
+        in: formData
+        name: country
+        required: true
+        type: string
+      - description: address1
+        in: formData
+        name: address1
+        type: string
+      - description: address2
+        in: formData
+        name: address2
+        type: string
+      - description: zip code
+        in: formData
+        name: zip_code
+        type: integer
+      - description: url
+        in: formData
+        name: url
+        type: string
+      - description: phone
+        in: formData
+        name: phone
+        type: string
+      - description: account id
+        in: formData
+        name: account_id
+        required: true
+        type: string
+      - description: icon image
+        in: formData
+        name: logo
+        type: file
+      - description: first name
+        in: formData
+        name: first_name
+        type: string
+      - description: middle name
+        in: formData
+        name: middle_name
+        type: string
+      - description: family name
+        in: formData
+        name: family_name
+        type: string
+      - description: icon
+        in: formData
+        name: icon
+        type: file
+      - description: json:Company,Owner,Number1,Number2,Number3,Number4,Month,Year,SecurityCode
+        in: formData
+        name: card
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "400":
+          description: Validation error
+          schema:
+            type: string
+        "404":
+          description: User infomation is not found
+          schema:
+            type: string
+      summary: Update user infomation
+      tags:
+      - Profile
+    post:
+      consumes:
+      - multipart/form-data
+      description: Get the user by cookie value and update user infomation of the user
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: id:1
+        in: formData
+        name: activity
+        required: true
+        type: string
+      - description: id:1
+        in: formData
+        name: industry
+        required: true
+        type: string
+      - description: company
+        in: formData
+        name: company
+        required: true
+        type: string
+      - description: id:1
+        in: formData
+        name: country
+        required: true
+        type: string
+      - description: address1
+        in: formData
+        name: address1
+        type: string
+      - description: address2
+        in: formData
+        name: address2
+        type: string
+      - description: zip code
+        in: formData
+        name: zip_code
+        type: integer
+      - description: url
+        in: formData
+        name: url
+        type: string
+      - description: phone
+        in: formData
+        name: phone
+        type: string
+      - description: account id
+        in: formData
+        name: account_id
+        required: true
+        type: string
+      - description: icon image
+        in: formData
+        name: logo
+        type: file
+      - description: first name
+        in: formData
+        name: first_name
+        type: string
+      - description: middle name
+        in: formData
+        name: middle_name
+        type: string
+      - description: family name
+        in: formData
+        name: family_name
+        type: string
+      - description: icon
+        in: formData
+        name: icon
+        type: file
+      - description: json:Company,Owner,Number1,Number2,Number3,Number4,Month,Year,SecurityCode
+        in: formData
+        name: card
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User infomation
+          schema:
+            $ref: '#/definitions/outputdata.Profile'
+        "400":
+          description: Validation error
+          schema:
+            type: string
+        "409":
+          description: Can't register user infomation
+          schema:
+            type: string
+      summary: Create user infomation
+      tags:
+      - Profile
+  /profile/:id:
+    get:
+      description: Get the user and his profile by cookie value and display profile page
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Profile
+          schema:
+            $ref: '#/definitions/outputdata.PublicUser'
+        "404":
+          description: Profile is not found
+          schema:
+            type: string
+      summary: Display a profile
+      tags:
+      - Profile
+  /profile/brandlike:
+    get:
+      description: Display brand like got by the user id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Brand like
+          schema:
+            items:
+              $ref: '#/definitions/outputdata.Brand'
+            type: array
+        "404":
+          description: Brand like is not found
+          schema:
+            type: string
+      summary: Display brand like
+      tags:
+      - Profile
+  /profile/edit:
+    get:
+      description: Get the user and his profile by cookie value and display profile edit page
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User infomation
+          schema:
+            $ref: '#/definitions/outputdata.Profile'
+        "404":
+          description: User infomation is not found
+          schema:
+            type: string
+      summary: Display a profile edit page
+      tags:
+      - Profile
+  /profile/new:
+    get:
+      description: Display user infomation register page
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User infomation select item
+          schema:
+            $ref: '#/definitions/outputdata.ProfileSelectItem'
+      summary: Display user infomation register page
+      tags:
+      - Profile
+  /projects:
+    get:
+      description: Display projects of the user
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/outputdata.Project'
+            type: array
+        "404":
+          description: Project list is not found
+          schema:
+            type: string
+      summary: Display projects of user
+      tags:
+      - Project
+    post:
+      consumes:
+      - multipart/form-data
+      description: Create a new project. ID is generated by random string generation
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: project name
+        in: formData
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: brand
+          schema:
+            type: string
+        "409":
+          description: The user can't register a project
+          schema:
+            type: string
+      summary: Create a new project
+      tags:
+      - Project
+  /projects/{id}:
+    delete:
+      description: Delete a project got by the id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Project ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "409":
+          description: The user can't delete the project
+          schema:
+            type: string
+      summary: Delete a project
+      tags:
+      - Project
+    get:
+      description: Display a project got by the id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Project ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Project
+          schema:
+            $ref: '#/definitions/outputdata.Project'
+        "404":
+          description: The project is not found
+          schema:
+            type: string
+      summary: Display a project of user
+      tags:
+      - Project
+    patch:
+      consumes:
+      - multipart/form-data
+      description: Update a project got by the id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Project ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Project Name
+        in: formData
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: project
+          schema:
+            $ref: '#/definitions/outputdata.Project'
+        "409":
+          description: The user can't edit the project
+          schema:
+            type: string
+      summary: Edit a project
+      tags:
+      - Project
+  /projects/{id}/edit:
+    get:
+      description: Display edit page of a project got by the id
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Project ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: project
+          schema:
+            $ref: '#/definitions/outputdata.Project'
+        "404":
+          description: The user can't get the product
+          schema:
+            type: string
+      summary: Display edit page of a project
+      tags:
+      - Project
+  /projects/new:
+    get:
+      description: Display page for creating a new project
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+      summary: Display project register page
+      tags:
+      - Project
+  /search/product:
+    get:
+      consumes:
+      - multipart/form-data
+      description: Pass all product list to the front
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: keyword
+        in: query
+        name: keyword
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/outputdata.Product'
+            type: array
+        "404":
+          description: Can't display product search page
+          schema:
+            type: string
+      summary: Display products search page
+      tags:
+      - Search
+  /signin:
+    get:
+      description: Display my page if the user is logged in
+      produces:
+      - application/json
+      responses:
+        "200": {}
+      summary: Display signin page
+      tags:
+      - UserAuth
+    post:
+      consumes:
+      - multipart/form-data
+      description: Generate cookie for login discrimination if email and password match DB. Otherwise redirect to sign in page.
+      parameters:
+      - description: email
+        in: formData
+        name: email
+        required: true
+        type: string
+      - description: password
+        in: formData
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: IsSigninClear and JwtToken
+          schema:
+            $ref: '#/definitions/outputdata.SignIn'
+        "409":
+          description: Email or Password is incorrect
+          schema:
+            type: string
+      summary: Sign in
+      tags:
+      - UserAuth
+  /signout:
+    post:
+      description: Delete cookie for login discrimination
+      parameters:
+      - description: jwt token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+      summary: Signout
+      tags:
+      - UserAuth
+  /signup:
+    get:
+      description: Display sign up page if the user is not logged in
+      produces:
+      - application/json
+      responses:
+        "200": {}
+      summary: Display signup page
+      tags:
+      - UserAuth
+    post:
+      consumes:
+      - multipart/form-data
+      description: Redirect to signup page if email overlaps with an existing email
+      parameters:
+      - description: email
+        in: formData
+        name: email
+        required: true
+        type: string
+      - description: password
+        in: formData
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "400":
+          description: Validation error
+          schema:
+            type: string
+        "409":
+          description: The user can't sign up
+          schema:
+            type: string
+      summary: Provisionally sign up
+      tags:
+      - UserAuth
+swagger: "2.0"
+tags:
+- name: UserAuth
+- name: Profile
+- name: Order
+- name: Brand
+- name: Product
+- name: Project
+- name: Search
+- name: Inventory

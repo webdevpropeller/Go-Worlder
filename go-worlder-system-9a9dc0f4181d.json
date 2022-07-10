@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "main-presence-246001",
+  "private_key_id": "9a9dc0f4181d5942bbd1d98935905009201d3173",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCM0F/JChDI7mCJ\n0pimtQsgd3+4DiqcR7Y9L4Z/sonZJPHiOHph1F9vsOxClQ+4AbwLawUIS0WqMxB8\nk9vHTquWoHPg4Hz/2a3+n7Sx7iTCI+QSMeEz/m9zPaQuVMwEO3U4hxw/Z6o6OQDE\nLG72/0WLSDJHsH8RzF5lCdVxvyx5YFj1ngHEa0u++TMyFAqkjvsKAcab1CxJPX0+\nze4GT/QsuN4lESvbJzZhBKeOzTlZ+bAFC7nXgMDDL6/6DrOuK/fy2YGcxgbTMl2Z\nT8qsemyGYo8uOv0pgzIJVWuvC+xDgAMQI0EWYZTueQK37MDy6h32rrG5qF9AxVtM\nfn+vO9J/AgMBAAECggEAJVfNTx9gPCkbaPF0kiFJBh8qu8DmA/PwnGFSJeNPM0rc\n6sVXj0Im3RPqU+378SxklhKXjw+HNg+8u4zqp/xw/M0obeaav68WuYPZA6bIEMQ7\n46detc8v9zvNoovSXvz1pTwPfbEcL7yWO3AdLVudMca/rstbp3ivP9RPyo6MWNOT\njGpkONABX3O7DBpsHS4wtvQb5NQMaCMtRHKgMkE6NcDRPuzhiQsVcOYzh7yIBWOd\nekYs09KhNTK/A1ff35X0og1SF+RfN0xvTK8cfTqx7DToso9hPeWAZJIDIq3r3pCb\nalahLRGSz8LbVOdojQHRiwt/Y3iOL5fKYHt0c71FYQKBgQDBCPQ0MwoEDj1a9o3F\nXwVQz/FcypNoAz7Nm8/Kt2b08QK8jLHT+uOWOpp+JPnk4FfHEVnoAHgQ311bxLIg\nsysih+Mkr6UpjWHxU/sr03DZl5RavqS5MTfTdvh+ByNYs4WYYifXDQc88dCv9spb\n0I/A3hf4stURlxL3o1Hcq0yRSwKBgQC6vsvZL7/At28ntzs0moXdw3MPPwTFCV/D\nQxNHtO+Hs/pflL9BZlpj75Eoy7AZtI5dpCj3OUI8LUsbu+NzHRcK6l+07q7PyQfE\nkqeefUE0j9it0L36tzVM3aAKZdh0RQbv6M+0OBfxzY6l81nu/zPpTxKmqMrpng+R\nrAjM+iD3HQKBgHcs3P/BJwTb+btIDrz07iY3S087bghAQKzV7lK8Kh89ELBxuHQk\nKBAevDT3BSTt8KNhLf2TFI1uKYg3hrWziAT4mh6TJkfiFr7UV3R2ROzBrYDcxHvl\nTA8NG1tLcuIXa3pp1yjozTguHuYUWliXCblMJMaROgRzHe2vciHnzAzDAoGAbuAf\nagkWoZaHsZ3x0g640m1cID47V710FRv7E4US/pBWZG+Niof5vQIdPoqJOQnhySlR\nhU+CyvXddU7+AXfRGZMEVgms0wO5z/V+/fPCRjHt5W1djsE+LTAc+G91r7rYHpMs\n1wTC+rcgLdmpmOP+71Qab8ciCsjk14m8A++yqOUCgYBUr0+09Sqf+HkDP0m6dA2+\nmqBCpGo/4NH6Gt0aiGAmwygG8Lu9ipE1pe1NwIgP6YPJvu2jReGwbenf8PpQFDKw\neROQD5qY2pzYr5rs1enfyDcLzQ4JYZHpfiJOlTYWAOiB+HiKCNNLUvn8VYn5smv3\nrJPyPRoDQq4XrSUpSPwVJw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "wolonote-development-service-a@main-presence-246001.iam.gserviceaccount.com",
+  "client_id": "112264788860201172019",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/wolonote-development-service-a%40main-presence-246001.iam.gserviceaccount.com"
+}

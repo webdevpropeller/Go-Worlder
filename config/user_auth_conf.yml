@@ -1,0 +1,2 @@
+EmailAuthURL: "http://118.27.23.183:8080/api/register?token="
+PasswordResetURL: "http://118.27.23.183:8080/api/passwordreset?token="
